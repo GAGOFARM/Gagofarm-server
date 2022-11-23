@@ -17,23 +17,19 @@ exports.getTest = async function (req, res) {
 
 /**
  * API No. 1
- * API Name : 유저 생성 (회원가입) API
+ * API Name : 회원가입 API
  * [POST] /app/users
  */
 exports.postUsers = async function (req, res) {
 
     /**
-     * Body: email, password, nickname
+     * Body: email, password, phoneNumber
      */
-    const {email, password, nickname} = req.body;
+    const {email, password, phoneNumber} = req.body;
 
     // 빈 값 체크
     if (!email)
         return res.send(response(baseResponse.SIGNUP_EMAIL_EMPTY));
-
-    // 길이 체크
-    if (email.length > 30)
-        return res.send(response(baseResponse.SIGNUP_EMAIL_LENGTH));
 
     // 형식 체크 (by 정규표현식)
     if (!regexEmail.test(email))
@@ -43,7 +39,7 @@ exports.postUsers = async function (req, res) {
     const signUpResponse = await userService.createUser(
         email,
         password,
-        nickname
+        phoneNumber
     );
 
     // signUpResponse 값을 json으로 전달
@@ -55,6 +51,7 @@ exports.postUsers = async function (req, res) {
  * API Name : 유저 조회 API (+ 이메일로 검색 조회)
  * [GET] /app/users
  */
+
 exports.getUsers = async function (req, res) {
 
     /**

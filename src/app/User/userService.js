@@ -15,7 +15,8 @@ const crypto = require("crypto");
 
 // Service: Create, Update, Delete 비즈니스 로직 처리
 
-exports.createUser = async function (email, password, nickname) {
+// 1. 회원가입 API
+exports.createUser = async function (email, password, phoneNumber) {
     try {
         // 이메일 중복 확인
         // UserProvider에서 해당 이메일과 같은 User 목록을 받아서 emailRows에 저장한 후, 배열의 길이를 검사한다.
@@ -30,8 +31,11 @@ exports.createUser = async function (email, password, nickname) {
             .update(password)
             .digest("hex");
 
+        // 이메일에서 닉네임 추출
+        const nickname = email.substring(0, email.indexOf('@'))
+
         // 쿼리문에 사용할 변수 값을 배열 형태로 전달
-        const insertUserInfoParams = [email, hashedPassword, nickname];
+        const insertUserInfoParams = [email, hashedPassword, nickname, phoneNumber];
 
         const connection = await pool.getConnection(async (conn) => conn);
 
