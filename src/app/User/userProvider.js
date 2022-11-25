@@ -37,6 +37,7 @@ exports.retrieveUser = async function (userId) {
   return userResult[0]; // 한 명의 유저 정보만을 불러오므로 배열 타입을 리턴하는 게 아닌 0번 인덱스를 파싱해서 오브젝트 타입 리턴
 };
 
+// 중복 이메일 체크 및 이메일로 회원 찾기
 exports.emailCheck = async function (email) {
   const connection = await pool.getConnection(async (conn) => conn);
   const emailCheckResult = await userDao.selectUserEmail(connection, email);
@@ -44,6 +45,15 @@ exports.emailCheck = async function (email) {
 
   return emailCheckResult;
 };
+
+// 중복 전화번호 체크 및 전화번호로 회원 찾기
+exports.phoneCheck = async function(phoneNumber) {
+  const connection = await pool.getConnection(async (conn) => conn);
+  const phoneCheckResult = await userDao.selectUserPhone(connection, phoneNumber);
+  connection.release();
+
+  return phoneCheckResult;
+}
 
 exports.passwordCheck = async function (selectUserPasswordParams) {
   const connection = await pool.getConnection(async (conn) => conn);

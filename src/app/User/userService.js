@@ -24,7 +24,12 @@ exports.createUser = async function (email, password, phoneNumber) {
         const emailRows = await userProvider.emailCheck(email);
         if (emailRows.length > 0)
             return errResponse(baseResponse.SIGNUP_REDUNDANT_EMAIL);
-
+            
+        // 전화번호 중복 확인
+        const phoneRows = await userProvider.phoneCheck(phoneNumber);
+        if (phoneRows.length > 0)
+            return errResponse(baseResponse.SIGNUP_REDUNDANT_PHONE);
+        
         // 비밀번호 암호화
         const hashedPassword = await crypto
             .createHash("sha512")
@@ -36,13 +41,12 @@ exports.createUser = async function (email, password, phoneNumber) {
 
         // 쿼리문에 사용할 변수 값을 배열 형태로 전달
         const insertUserInfoParams = [email, hashedPassword, nickname, phoneNumber];
-
         const connection = await pool.getConnection(async (conn) => conn);
 
         const userIdResult = await userDao.insertUserInfo(connection, insertUserInfoParams);
         console.log(`추가된 회원 : ${userIdResult[0].insertId}`)
         connection.release();
-        return response(baseResponse.SUCCESS);
+        return response(baseResponse.SIGNUP_SUCCESS);
 
     } catch (err) {
         logger.error(`App - createUser Service error\n: ${err.message}`);

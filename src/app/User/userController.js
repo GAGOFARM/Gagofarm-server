@@ -5,6 +5,8 @@ const baseResponse = require("../../../config/baseResponseStatus");
 const {response, errResponse} = require("../../../config/response");
 
 const regexEmail = require("regex-email");
+// 휴대폰 번호 체크 정규식
+const regexPhone = /^01([0|1|6|7|8|9])([0-9]{7,8})$/;
 
 /**
  * API No. 0
@@ -30,11 +32,19 @@ exports.postUsers = async function (req, res) {
     // 빈 값 체크
     if (!email)
         return res.send(response(baseResponse.SIGNUP_EMAIL_EMPTY));
+    if (!password)
+        return res.send(response(baseResponse.SIGNUP_PASSWORD_EMPTY));
+    if (!phoneNumber)
+        return res.send(response(baseResponse.SIGNUP_PHONE_EMPTY));
 
-    // 형식 체크 (by 정규표현식)
+    // 이메일 형식 체크 (by 정규표현식)
     if (!regexEmail.test(email))
         return res.send(response(baseResponse.SIGNUP_EMAIL_ERROR_TYPE));
 
+    // 전화번호 형식 체크
+    if (!regexPhone.test(phoneNumber))
+        return res.send(response(baseResponse.SIGNUP_PHONE_ERROR_TYPE))
+    
     // createUser 함수 실행을 통한 결과 값을 signUpResponse에 저장
     const signUpResponse = await userService.createUser(
         email,

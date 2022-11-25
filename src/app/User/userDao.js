@@ -22,6 +22,17 @@ async function selectUserEmail(connection, email) {
   return emailRows;
 }
 
+// 전화번호로 회원 조회
+async function selectUserPhone(connection, phoneNumber) {
+  const selectUserPhoneQuery = `
+                SELECT phoneNumber, nickname 
+                FROM User
+                WHERE phoneNumber = ?;
+                `;
+  const [phoneRows] = await connection.query(selectUserPhoneQuery, phoneNumber);
+  return phoneRows;
+}
+
 // userId 회원 조회
 async function selectUserId(connection, userId) {
   const selectUserIdQuery = `
@@ -87,6 +98,7 @@ async function updateUserInfo(connection, id, nickname) {
 module.exports = {
   selectUser,
   selectUserEmail,
+  selectUserPhone,
   selectUserId,
   insertUserInfo,
   selectUserPassword,
