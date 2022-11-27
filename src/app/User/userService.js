@@ -24,7 +24,7 @@ exports.createUser = async function (email, password, phoneNumber) {
         const emailRows = await userProvider.emailCheck(email);
         if (emailRows.length > 0)
             return errResponse(baseResponse.SIGNUP_REDUNDANT_EMAIL);
-            
+
         // 전화번호 중복 확인
         const phoneRows = await userProvider.phoneCheck(phoneNumber);
         if (phoneRows.length > 0)
@@ -55,6 +55,7 @@ exports.createUser = async function (email, password, phoneNumber) {
 };
 
 
+// 2. 로그인 API
 // TODO: After 로그인 인증 방법 (JWT)
 exports.postSignIn = async function (email, password) {
     try {
@@ -72,26 +73,27 @@ exports.postSignIn = async function (email, password) {
 
         const selectUserPasswordParams = [selectEmail, hashedPassword];
         const passwordRows = await userProvider.passwordCheck(selectUserPasswordParams);
-
-        if (passwordRows[0].password !== hashedPassword) {
+        console.log('passwordRows : ', passwordRows)
+        if (!passwordRows[0]){//passwordRows[0].password !== hashedPassword) {
             return errResponse(baseResponse.SIGNIN_PASSWORD_WRONG);
         }
 
         // 계정 상태 확인
-        const userInfoRows = await userProvider.accountCheck(email);
+        //const userInfoRows = await userProvider.accountCheck(email);
 
+        /*
         if (userInfoRows[0].status === "INACTIVE") {
             return errResponse(baseResponse.SIGNIN_INACTIVE_ACCOUNT);
         } else if (userInfoRows[0].status === "DELETED") {
             return errResponse(baseResponse.SIGNIN_WITHDRAWAL_ACCOUNT);
-        }
+        }*/
 
-        console.log(userInfoRows[0].id) // DB의 userId
+        console.log(passwordRows[0].userIdx) // DB의 userId
 
         //토큰 생성 Service
         let token = await jwt.sign(
             {
-                userId: userInfoRows[0].id,
+                userId: passwordRows[0].userIdx,
             }, // 토큰의 내용(payload)
             secret_config.jwtsecret, // 비밀키
             {
@@ -100,7 +102,7 @@ exports.postSignIn = async function (email, password) {
             } // 유효 기간 365일
         );
 
-        return response(baseResponse.SUCCESS, {'userId': userInfoRows[0].id, 'jwt': token});
+        return response(baseResponse.SIGNIN_SUCCESS, {'userId': passwordRows[0].userIdx, 'access-token': token});
 
     } catch (err) {
         logger.error(`App - postSignIn Service error\n: ${err.message} \n${JSON.stringify(err)}`);

@@ -8,6 +8,9 @@ module.exports = function(app){
     // 1. 회원가입 API
     app.post('/app/user/sign-up', user.postUsers);
 
+    // 2. 로그인 API
+    app.post('/app/user/sign-in', user.loginUser);
+
     /*
     // 2. 유저 조회 API (+ 검색)
     app.get('/app/users',user.getUsers); 

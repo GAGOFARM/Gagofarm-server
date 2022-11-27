@@ -41,10 +41,14 @@ exports.postUsers = async function (req, res) {
     if (!regexEmail.test(email))
         return res.send(response(baseResponse.SIGNUP_EMAIL_ERROR_TYPE));
 
+    // 이메일 길이 체크
+    if (email.length >= 30)
+        return res.send(response(baseResponse.SIGNUP_EMAIL_LENGTH));
+
     // 전화번호 형식 체크
     if (!regexPhone.test(phoneNumber))
         return res.send(response(baseResponse.SIGNUP_PHONE_ERROR_TYPE))
-    
+
     // createUser 함수 실행을 통한 결과 값을 signUpResponse에 저장
     const signUpResponse = await userService.createUser(
         email,
@@ -58,10 +62,33 @@ exports.postUsers = async function (req, res) {
 
 /**
  * API No. 2
- * API Name : 유저 조회 API (+ 이메일로 검색 조회)
- * [GET] /app/users
+ * API Name : 로그인 API 
+ * [GET] /app/user/sign-in
  */
 
+exports.loginUser = async function (req, res) {
+
+    const {email, password} = req.body;
+
+    // 빈 값 체크
+    if (!email)
+        return res.send(response(baseResponse.SIGNUP_EMAIL_EMPTY));
+    if (!password)
+        return res.send(response(baseResponse.SIGNUP_PASSWORD_EMPTY));
+    
+     // 이메일 길이 체크
+    if (email.length >= 30)
+        return res.send(response(baseResponse.SIGNIN_EMAIL_LENGTH));
+
+    const signInResponse = await userService.postSignIn(email, password);
+
+    return res.send(signInResponse);
+
+}
+
+
+
+// 유저 조회 API
 exports.getUsers = async function (req, res) {
 
     /**
@@ -108,6 +135,7 @@ exports.getUserById = async function (req, res) {
  * [POST] /app/login
  * body : email, passsword
  */
+/*
 exports.login = async function (req, res) {
 
     const {email, password} = req.body;
@@ -116,7 +144,7 @@ exports.login = async function (req, res) {
 
     return res.send(signInResponse);
 };
-
+*/
 
 /**
  * API No. 5

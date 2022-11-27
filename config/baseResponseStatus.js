@@ -6,7 +6,7 @@ module.exports = {
     SUCCESS : { "isSuccess": true, "code": 1000, "message": "성공" },
     /* 신혜 부분 */
     SIGNUP_SUCCESS : { "isSuccess": true, "code": 21001, "message": "회원가입 성공" },
-
+    SIGNIN_SUCCESS : { "isSuccess": true, "code": 21002, "message": "로그인 성공" },
 
     // Common
     TOKEN_EMPTY : { "isSuccess": false, "code": 2000, "message":"JWT 토큰을 입력해주세요." },
@@ -20,7 +20,12 @@ module.exports = {
     SIGNUP_PASSWORD_EMPTY : { "isSuccess": false, "code": 22003, "message": "비밀번호를 입력 해주세요." },
     SIGNUP_PHONE_EMPTY : { "isSuccess": false, "code": 22004, "message":"전화번호를 입력해주세요." },
     SIGNUP_PHONE_ERROR_TYPE : { "isSuccess": false,"code": 22005,"message":"유효한 전화번호를 입력해주세요." },
-    
+    SIGNUP_EMAIL_LENGTH : { "isSuccess": false, "code": 22006, "message":"이메일은 30자리 미만으로 입력해주세요." },
+
+    SIGNIN_EMAIL_EMPTY : { "isSuccess": false, "code": 22011, "message":"이메일을 입력해주세요" },
+    SIGNIN_PASSWORD_EMPTY : { "isSuccess": false, "code": 22012, "message": "비밀번호를 입력해주세요." },
+    SIGNIN_EMAIL_LENGTH : { "isSuccess": false, "code": 22013, "message":"이메일은 30자리 미만으로 입력해주세요." },
+
     /* 기존 부분 */
     SIGNUP_EMAIL_EMPTY : { "isSuccess": false, "code": 2001, "message":"이메일을 입력해주세요" },
     SIGNUP_EMAIL_LENGTH : { "isSuccess": false, "code": 2002, "message":"이메일은 30자리 미만으로 입력해주세요." },
@@ -47,17 +52,16 @@ module.exports = {
     USER_STATUS_EMPTY : { "isSuccess": false, "code": 2018, "message": "회원 상태값을 입력해주세요" },
 
     // Response error
-    /**/SIGNUP_REDUNDANT_EMAIL : { "isSuccess": false, "code": 23001, "message":"중복된 이메일입니다." },
-    /**/SIGNUP_REDUNDANT_PHONE : { "isSuccess": false, "code": 23002, "message":"중복된 전화번호입니다." },
+    /* 신혜 부분 */
+    SIGNUP_REDUNDANT_EMAIL : { "isSuccess": false, "code": 23001, "message":"중복된 이메일입니다." },
+    SIGNUP_REDUNDANT_PHONE : { "isSuccess": false, "code": 23002, "message":"중복된 전화번호입니다." },
 
-    SIGNIN_EMAIL_WRONG : { "isSuccess": false, "code": 3003, "message": "아이디가 잘못 되었습니다." },
-    SIGNIN_PASSWORD_WRONG : { "isSuccess": false, "code": 3004, "message": "비밀번호가 잘못 되었습니다." },
-    SIGNIN_INACTIVE_ACCOUNT : { "isSuccess": false, "code": 3005, "message": "비활성화 된 계정입니다. 고객센터에 문의해주세요." },
-    SIGNIN_WITHDRAWAL_ACCOUNT : { "isSuccess": false, "code": 3006, "message": "탈퇴 된 계정입니다. 고객센터에 문의해주세요." },
+    SIGNIN_EMAIL_WRONG : { "isSuccess": false, "code": 23003, "message": "아이디가 잘못되었습니다." },
+    SIGNIN_PASSWORD_WRONG : { "isSuccess": false, "code": 23004, "message": "비밀번호가 잘못되었습니다." },
 
     //Connection, Transaction 등의 서버 오류
     DB_ERROR : { "isSuccess": false, "code": 24001, "message": "데이터 베이스 에러"},
     SERVER_ERROR : { "isSuccess": false, "code": 24002, "message": "서버 에러"},
- 
- 
+
+
 }
