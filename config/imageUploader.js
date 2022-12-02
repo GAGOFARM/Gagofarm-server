@@ -28,12 +28,12 @@ const imageUploader = multer({
             if (!file) {
                 return res.send(errResponse(baseResponse.UPLOAD_IMG_EMTPY))
             }
-            const uploadDirectory = req.query.directory ?? 'landImgDB' // 업로드할 디렉토리 설정. 없어도 괜찮.
+            //const uploadDirectory = req.query.directory ?? 'landImgDB' // 업로드할 디렉토리 설정. 없어도 괜찮.
             const extension = path.extname(file.originalname)
             if (!allowedExtensions.includes(extension)) {
                 return callback(new Error('wrong extension'))
             }
-            callback(null, `${uploadDirectory}/${Date.now()}_${file.originalname}`)
+            callback(null, `landImgDB/${Date.now()}_${file.originalname}`)
         },
         acl: 'public-read-write'
     }),
