@@ -5,8 +5,9 @@ module.exports = {
     // Success
     SUCCESS : { "isSuccess": true, "code": 1000, "message": "성공" },
     /* 신혜 부분 */
-    SIGNUP_SUCCESS : { "isSuccess": true, "code": 21001, "message": "회원가입 성공" },
-    SIGNIN_SUCCESS : { "isSuccess": true, "code": 21002, "message": "로그인 성공" },
+    SUCCESS_SIGNUP : { "isSuccess": true, "code": 21001, "message": "회원가입 성공" },
+    SUCCESS_SIGNIN : { "isSuccess": true, "code": 21002, "message": "로그인 성공" },
+    SUCCESS_UPLOAD_IMG : { "isSuccess": true, "code": 21003, "message": "이미지 URL 추출 성공" },
 
     // Common
     TOKEN_EMPTY : { "isSuccess": false, "code": 2000, "message":"JWT 토큰을 입력해주세요." },
@@ -25,6 +26,8 @@ module.exports = {
     SIGNIN_EMAIL_EMPTY : { "isSuccess": false, "code": 22011, "message":"이메일을 입력해주세요" },
     SIGNIN_PASSWORD_EMPTY : { "isSuccess": false, "code": 22012, "message": "비밀번호를 입력해주세요." },
     SIGNIN_EMAIL_LENGTH : { "isSuccess": false, "code": 22013, "message":"이메일은 30자리 미만으로 입력해주세요." },
+
+    UPLOAD_IMG_EMTPY :  { "isSuccess": false, "code": 22021, "message":"저장할 이미지를 첨부해주세요." },
 
     /* 기존 부분 */
     SIGNUP_EMAIL_EMPTY : { "isSuccess": false, "code": 2001, "message":"이메일을 입력해주세요" },

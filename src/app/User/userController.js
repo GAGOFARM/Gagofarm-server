@@ -20,7 +20,7 @@ exports.getTest = async function (req, res) {
 /**
  * API No. 1
  * API Name : 회원가입 API
- * [POST] /app/users
+ * [POST] /app/user/sign-up
  */
 exports.postUsers = async function (req, res) {
 
@@ -63,7 +63,7 @@ exports.postUsers = async function (req, res) {
 /**
  * API No. 2
  * API Name : 로그인 API 
- * [GET] /app/user/sign-in
+ * [POST] /app/user/sign-in
  */
 
 exports.loginUser = async function (req, res) {

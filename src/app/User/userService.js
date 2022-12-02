@@ -46,7 +46,7 @@ exports.createUser = async function (email, password, phoneNumber) {
         const userIdResult = await userDao.insertUserInfo(connection, insertUserInfoParams);
         console.log(`추가된 회원 : ${userIdResult[0].insertId}`)
         connection.release();
-        return response(baseResponse.SIGNUP_SUCCESS);
+        return response(baseResponse.SUCCESS_SIGNUP);
 
     } catch (err) {
         logger.error(`App - createUser Service error\n: ${err.message}`);
@@ -102,7 +102,7 @@ exports.postSignIn = async function (email, password) {
             } // 유효 기간 365일
         );
 
-        return response(baseResponse.SIGNIN_SUCCESS, {'userId': passwordRows[0].userIdx, 'access-token': token});
+        return response(baseResponse.SUCCESS_SIGNIN, {'userId': passwordRows[0].userIdx, 'access-token': token});
 
     } catch (err) {
         logger.error(`App - postSignIn Service error\n: ${err.message} \n${JSON.stringify(err)}`);
