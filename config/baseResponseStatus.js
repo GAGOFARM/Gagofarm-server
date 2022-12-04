@@ -28,6 +28,11 @@ module.exports = {
     code: 10003,
     message: "북마크 헤제 성공",
   },
+  GETPROFILE_SUCCESS: {
+    isSuccess: true,
+    code: 10004,
+    message: "프로필 보여주기 성공",
+  },
 
   // Common
   TOKEN_EMPTY: {

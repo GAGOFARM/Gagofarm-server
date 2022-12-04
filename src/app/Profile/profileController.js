@@ -30,7 +30,7 @@ exports.getProfile = async function (req, res) {
   //   // userId를 통한 유저 검색 함수 호출 및 결과 저장
   const userByUserId = await profileProvider.searchUser(userId);
   // 결과를 줄때 result
-  return res.send(response(baseResponse.BOOKMARK_SUCCESS));
+  return res.send(response(baseResponse.GETPROFILE_SUCCESS, userByUserId));
 };
 
 /**
